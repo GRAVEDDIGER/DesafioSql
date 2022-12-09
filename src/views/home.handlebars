@@ -1,0 +1,11 @@
+<body class="bg-gray-600 font-serif font-bold relative h-screen w-full">
+{{>header}}
+<main class="flex flex-col bg-slate-300 ">
+    {{>addproduct}}
+    {{>viewproducts}}
+    {{>chat}}
+</main>
+{{>footer}}
+<script src="/socket.io/socket.io.js"></script>
+<script src="main.js" type="module"></script>
+</body>

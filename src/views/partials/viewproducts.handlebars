@@ -1,0 +1,15 @@
+<section class="flex flex-col w-full h-full justify-center bg-slate-400 p-8 ">
+<h2 class="text-4xl content-center text-amber- p-4 text-center">Ver Productos</h2>
+   {{#if contenido}}
+<div class="flex flex-row">
+
+   {{#each products}}
+    <article class=" bg-slate-300 shadow-md shadow-black flex flex-col w-96 justify-center m-4 content-center">
+        <h3 class="text-center p-4">{{this.title}}</h3>
+        <h4 class="text-center p-4">{{this.url}}</h4>
+        <h4 class="text-center p-4">{{this.url}}</h4>
+    </article>
+    {{/each}}
+    </div>
+    {{/if}}
+</section>
