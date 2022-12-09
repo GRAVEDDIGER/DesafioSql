@@ -37,4 +37,8 @@ io.on('connection', (socket: Socket) => {
     chatArray.push(message)
     io.emit('serverMessage', message)
   })
+  io.on('clientMessage', (socket: ChatObject) => {
+    chatArray.push(socket)
+    io.emit('serverMessage', socket)
+  })
 })
