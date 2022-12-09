@@ -32,7 +32,7 @@ const io = require('socket.io')(server)
 const chatArray: ChatObject[] = []
 io.on('connection', (socket: Socket) => {
   console.log(colors.green('Web Sockets: Client Conected'))
-  io.emit('startChat', chatArray)
+  socket.emit('startChat', chatArray)
   socket.on('clientMessage', (message: ChatObject) => {
     chatArray.push(message)
     io.emit('serverMessage', message)

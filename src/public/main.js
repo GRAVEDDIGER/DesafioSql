@@ -9,7 +9,10 @@ sendMessage.addEventListener('click', e => {
 })
 
 client.on('startChat', messages => {
+  console.log(messages, 'dd')
   messages.forEach(message => {
-
+    const fragmento = document.getElementById('chatItem').content
+    const selector = fragmento.querySelectorAll('.data')
+    console.log(selector, 'mm')
   })
 })
