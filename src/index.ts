@@ -9,6 +9,7 @@ import { Socket } from 'socket.io/dist/socket'
 import { Server } from 'socket.io'
 import { route } from './v1/routes/products'
 import { ChatObject } from './types'
+import { knex } from './configurations/knex'
 const colors = require('colors')
 const PORT = process.env.PORT ?? 8080
 const app = express()
