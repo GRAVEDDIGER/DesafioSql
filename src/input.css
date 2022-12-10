@@ -9,4 +9,9 @@
     .inputCss{
         @apply bg-slate-200 rounded-md my-4 border-solid border-amber-100 border-4
     }
+    .derecha{
+        text-align: right;
+    }
+    .izquierda{text-align: left !important;}
+
 }

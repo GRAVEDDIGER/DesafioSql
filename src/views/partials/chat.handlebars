@@ -1,7 +1,7 @@
 <section class="flex flex-col w-full h-full justify-center bg-slate-400 p-8">
   <h2 class="text-4xl content-center text-amber- p-4 text-center">Chat</h2>
   <article
-    class="flex flex-col h-px{300} bg-slate-300 px-8 my-4 shadow-lg shadow-black h-96 border-solid border-amber-200 border-4"
+    class="flex flex-col bg-slate-300 px-8 my-4 shadow-lg shadow-black h-96 border-solid border-amber-200 border-4"
   >
     <div
       class="h-full mt-4 bg-slate-200 flex flex-col p-4 border-solid border-amber-100 border-4"
@@ -18,12 +18,14 @@
       <button class="btn ml-3" id="sendMessage">Send</button></div>
   </article>
   <template id="chatItem">
-    <div class="flex flex-col border-solid border-2 border-slate-400">
+    <div
+      class="flex flex-col border-solid border-2 border-slate-400 rounded-md shadow-md py-1 my-2"
+    >
       <div class="flex flex-row">
-        <div class="text-green-500 font-bold data">USER</div>
-        <div class="text-red-600 italic data">Time</div>
+        <div class="text-green-500 font-bold data px-4 text-xs">USER</div>
+        <div class="text-red-600 italic data px-4 text-xs">Time</div>
       </div>
-      <div class="text-blue-600 data">Message</div>
+      <div class="text-blue-600 data px-4 text-sm">Message</div>
 
     </div>
   </template>

@@ -1,34 +1,40 @@
-// eslint-disable-next-line no-undef
-const client = io()
-// eslint-disable-next-line no-undef
+/* eslint-disable no-undef */
 const user = prompt('Ingrese Nombre de usuario')
 const sendMessage = document.getElementById('sendMessage')
-const chatMessage = document.getElementById('chatMessage')
-
-sendMessage.addEventListener('click', e => {
-  client.emit('clientMessage', { user, message: chatMessage.value, timeStamp: Date.now() })
+const chatBox = document.getElementById('msgBox')
+socket.on('connection', (ser) => {
+  console.log('conectado')
+  socket.emit('clientMessage', 'hola mundo')
 })
-
-client.on('startChat', messages => {
-  console.log(messages, 'dd')
+socket.on('startChat', messages => {
   const fragmentoFinal = document.createDocumentFragment()
-  messages.forEach(message => {
+  messages.forEach((message) => {
     fragmentoFinal.appendChild(updateDom(message))
   })
   document.getElementById('msgBox').appendChild(fragmentoFinal)
 })
-
-client.on('serverMessage', (message) => {
-
+sendMessage.addEventListener('click', (e) => {
+  socket.emit('clientMessage', JSON.stringify({
+    user,
+    message: chatMessage.value,
+    timeStamp: Date.now()
+  }))
+})
+socket.on('serverMessage', (message) => {
+  console.log('mensaje del server', message)
+  chatBox.appendChild(updateDom(message))
 })
 
-function updateDom (message) {
+function updateDom (mensaje) {
   const fragmento = document.getElementById('chatItem').content
   const selector = fragmento.querySelectorAll('.data')
-  selector[0].innerHtml = message.user
-  selector[1].innerHtml = Date(message.timeStamp).toLocaleString()
-  selector[2].innerHtml = message.message
+  const message = mensaje
+  if (user === message.user) fragmento.querySelector('div').classList.add('derecha')
+  else fragmento.querySelector('div').classList.add('izquierda')
+  console.log(fragmento)
+  selector[0].innerHTML = message.user
+  selector[1].innerHTML = new Date(message.timeStamp).toDateString()
+  selector[2].innerHTML = message.message
   const nodo = fragmento.cloneNode(true)
-  console.log(selector, 'mm')
   return nodo
 }
