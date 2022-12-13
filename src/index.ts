@@ -2,7 +2,6 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import express, { Request, Response } from 'express'
-// import express from 'express'
 import { engine } from 'express-handlebars'
 import path from 'path'
 import { Socket } from 'socket.io/dist/socket'
@@ -38,15 +37,12 @@ app.use((req: Request, res: Response) => {
 let chatArray: Chat[] = []
 dbManager.getAll().then(res => {
   chatArray = res.data
-  console.log(chatArray)
 }).catch(e => console.log(e))
 
 io.on('connection', (socket: Socket) => {
   console.log(colors.green('Web Sockets: Client Conected'))
   socket.emit('startChat', chatArray)
   socket.on('clientMessage', async (message) => {
-    console.log(colors.red('Mensaje recibido, enviando'))
-    console.log(colors.yellow(message))
     chatArray.push(JSON.parse(message))
     io.emit('serverMessage', message)
     dbManager.addProduct(JSON.parse(message)).then(res => console.log(res)).catch(e => console.log(e))

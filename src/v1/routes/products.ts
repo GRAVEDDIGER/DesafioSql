@@ -14,8 +14,6 @@ route.get('/', async (_req: Request, res: Response): Promise<any> => {
   } else {
     res.render('home', { contenido: false, products: data.data })
   }
-
-  // res.render('home', { contenido: true, products: [{ title: 'Adrian', url: 'daniel', price: 12 }, { title: 'Adrian', url: 'daniel', price: 12 }] })
 })
 
 route.post('/', express.json(), async (req: Request, res: Response) => {

@@ -3,7 +3,6 @@ const user = prompt('Ingrese Nombre de usuario')
 const sendMessage = document.getElementById('sendMessage')
 const chatBox = document.getElementById('msgBox')
 socket.on('connection', (ser) => {
-  console.log('conectado')
   socket.emit('clientMessage', 'hola mundo')
 })
 socket.on('startChat', (messages) => {
@@ -24,8 +23,7 @@ sendMessage.addEventListener('click', (e) => {
   )
 })
 socket.on('serverMessage', (message) => {
-  console.log('mensaje del server', message)
-  chatBox.appendChild(updateDom(message))
+  chatBox.appendChild(updateDom(JSON.parse(message)))
 })
 
 function updateDom (mensaje) {

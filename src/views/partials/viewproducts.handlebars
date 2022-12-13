@@ -3,9 +3,9 @@
    {{#if contenido}}
 <div class="flex flex-row flex-wrap">
    {{#each products}}
-    <article class=" bg-slate-300 shadow-md shadow-black flex flex-col w-96 justify-center m-4 content-center">
+    <article class=" bg-slate-300 shadow-md shadow-black flex flex-col  justify-center m-4 content-center  max-w-xs">
         <h3 class="text-center p-4">{{this.TITLE}}</h3>
-        <h4 class="text-center p-4">{{this.URL}}</h4>
+        <img class="text-center p-4 m-4 shadow-sm shadow-slate-300 border" src={{this.URL}} alt={{this.TITLE}}>
         <h4 class="text-center p-4">{{this.PRICE}}</h4>
     </article>
     {{/each}}
