@@ -6,7 +6,7 @@ socket.on('connection', (ser) => {
   console.log('conectado')
   socket.emit('clientMessage', 'hola mundo')
 })
-socket.on('startChat', messages => {
+socket.on('startChat', (messages) => {
   const fragmentoFinal = document.createDocumentFragment()
   messages.forEach((message) => {
     fragmentoFinal.appendChild(updateDom(message))
@@ -14,11 +14,14 @@ socket.on('startChat', messages => {
   document.getElementById('msgBox').appendChild(fragmentoFinal)
 })
 sendMessage.addEventListener('click', (e) => {
-  socket.emit('clientMessage', JSON.stringify({
-    user,
-    message: chatMessage.value,
-    timeStamp: Date.now()
-  }))
+  socket.emit(
+    'clientMessage',
+    JSON.stringify({
+      USER: user,
+      MESSAGE: chatMessage.value,
+      TIMESTAMP: Date.now()
+    })
+  )
 })
 socket.on('serverMessage', (message) => {
   console.log('mensaje del server', message)
@@ -29,12 +32,13 @@ function updateDom (mensaje) {
   const fragmento = document.getElementById('chatItem').content
   const selector = fragmento.querySelectorAll('.data')
   const message = mensaje
-  if (user === message.user) fragmento.querySelector('div').classList.add('derecha')
-  else fragmento.querySelector('div').classList.add('izquierda')
-  console.log(fragmento)
-  selector[0].innerHTML = message.user
-  selector[1].innerHTML = new Date(message.timeStamp).toDateString()
-  selector[2].innerHTML = message.message
+  if (user === message.user) {
+    fragmento.querySelector('div').classList.add('derecha')
+  } else fragmento.querySelector('div').classList.add('izquierda')
+  selector[0].innerHTML = message.USER
+  selector[1].innerHTML = new Date(message.TIMESTAMP).toDateString()
+  selector[2].innerHTML = message.MESSAGE
   const nodo = fragmento.cloneNode(true)
+  console.log(message)
   return nodo
 }

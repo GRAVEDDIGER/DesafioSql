@@ -18,10 +18,11 @@ route.get('/', async (_req: Request, res: Response): Promise<any> => {
   // res.render('home', { contenido: true, products: [{ title: 'Adrian', url: 'daniel', price: 12 }, { title: 'Adrian', url: 'daniel', price: 12 }] })
 })
 
-route.post('/', express.json(), async (req: Request, _res: Response) => {
+route.post('/', express.json(), async (req: Request, res: Response) => {
   const data1: Products = req.body
   const data = JSON.parse(Object.keys(data1)[0])
   console.log(colors.blue(data), colors.yellow('body'), colors.red(typeof data))
   const response: DataResponse = await dbManager.addProduct(data)
   console.log(colors.red(response))
+  res.redirect('/')
 })

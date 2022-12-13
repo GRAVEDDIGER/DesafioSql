@@ -1,13 +1,16 @@
+/* eslint-disable n/no-path-concat */
+/* eslint-disable @typescript-eslint/no-var-requires */
+
 import { Knex } from 'knex'
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-export const database: Knex = require('knex')({
-  client: 'mysql',
-  connection: {
-    host: '127.0.0.1',
-    user: 'root',
-    password: '',
-    database: 'coderhouse'
-  },
-  pool: { min: 0, max: 7 }
-})
+export class Database {
+  public database: Knex
+  constructor (file: string) {
+    this.database = require('knex')({
+      client: 'sqlite3',
+      connection: { filename: `./src/database/${file}.sqlite3` },
+      useNullAsDefault: true
+
+    })
+  }
+}

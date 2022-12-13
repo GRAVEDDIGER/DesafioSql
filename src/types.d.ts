@@ -18,3 +18,13 @@ export interface DataResponse {
   status: number
   textStatus: string
 }
+
+export interface Chat {
+  id?: number
+  USER: string
+  MESSAGE: string
+  TIMESTAMP: string
+}
+export interface ChatDataResponse extends Omit<DataResponse, 'data'> {
+  data: Chat[]
+}

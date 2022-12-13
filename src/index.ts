@@ -8,7 +8,8 @@ import path from 'path'
 import { Socket } from 'socket.io/dist/socket'
 import { Server } from 'socket.io'
 import { route } from './v1/routes/products'
-import { ChatObject } from './types'
+import dbManager from './controllers/chat.database'
+import { Chat } from './types'
 const colors = require('colors')
 const PORT = process.env.PORT ?? 8080
 const app = express()
@@ -33,14 +34,21 @@ app.use((req: Request, res: Response) => {
     err: `The Route ${req.path} on method ${req.method} is not yet implemented`
   })
 })
-const chatArray: ChatObject[] = []
+
+let chatArray: Chat[] = []
+dbManager.getAll().then(res => {
+  chatArray = res.data
+  console.log(chatArray)
+}).catch(e => console.log(e))
+
 io.on('connection', (socket: Socket) => {
   console.log(colors.green('Web Sockets: Client Conected'))
   socket.emit('startChat', chatArray)
-  socket.on('clientMessage', (message) => {
+  socket.on('clientMessage', async (message) => {
     console.log(colors.red('Mensaje recibido, enviando'))
     console.log(colors.yellow(message))
     chatArray.push(JSON.parse(message))
     io.emit('serverMessage', message)
+    dbManager.addProduct(JSON.parse(message)).then(res => console.log(res)).catch(e => console.log(e))
   })
 })

@@ -1,14 +1,25 @@
 import { Knex } from 'knex'
 import { DataResponse, Products } from '../types'
-import { database } from '../configurations/knex'
+import { Database } from '../configurations/knex'
 export class DbManager {
   private readonly database: Knex
   constructor (database: Knex) {
     this.database = database
   }
 
-  /// ////////////////////
-  // trabajando en getAll
+  async isTable (table: string): Promise<Boolean> {
+    return (await this.database.schema.hasTable(table))
+  }
+
+  async createProductsTable (table: string): Promise<any> {
+    return await this.database.schema.createTable(table, table => {
+      table.increments('id')
+      table.string('TITLE')
+      table.string('URL')
+      table.integer('PRICE')
+    }).then(() => { return true }).catch(e => { return { e } })
+  }
+
   async getAll (): Promise<DataResponse> {
     let response: DataResponse
     try {
@@ -34,6 +45,9 @@ export class DbManager {
 
   async addProduct (item: Products): Promise<DataResponse> {
     let response: DataResponse
+    if (await this.isTable('products') === false) {
+      await this.createProductsTable('products')
+    }
     try {
       const data = await this.database.insert({ TITLE: item.TITLE, URL: item.URL, PRICE: item.PRICE }).into('products')
       response = { data: [{ ...item, id: data[0] }], status: 200, err: '', textStatus: 'Product added succesifully' }
@@ -43,5 +57,5 @@ export class DbManager {
     return response
   }
 }
-
-export const dbManager = new DbManager(database)
+export const dbManager = new DbManager(new Database('coderhouse').database)
+export default dbManager
