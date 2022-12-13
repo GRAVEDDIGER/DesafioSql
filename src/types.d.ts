@@ -1,3 +1,4 @@
+
 export interface ChatObject {
   user: string
   message: string
@@ -12,7 +13,7 @@ export interface Products {
 }
 
 export interface DataResponse {
-  data: Products
+  data: Products[]
   err: string
   status: number
   textStatus: string

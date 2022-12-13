@@ -1,25 +1,29 @@
 <section class="block w-full h-full justify-center bg-slate-400 p-8">
   <h2 class="text-4xl content-center text-amber- p-4 text-center">Agregar un
     producto</h2>
-  <form class="flex flex-col bg-slate-300 px-8 my-4 shadow-lg shadow-black">
+  <form
+    id="addProductForm"
+    class="flex flex-col bg-slate-300 px-8 my-4 shadow-lg shadow-black"
+  >
     <input
       type="text"
-      name="title"
+      name="TITLE"
       placeholder="Escribe el titulo"
-      class="inputCss"
+      class="inputCss add"
     />
     <input
       type="text"
-      name="url"
+      name="URL"
       placeholder="Escribe la URL"
-      class="inputCss"
+      class="inputCss add"
     />
     <input
       type="text"
-      name="price"
+      name="PRICE"
       placeholder="Escribe el precio"
-      class="inputCss"
+      class="inputCss add"
     />
-    <button class="btn">Add Product</button>
+    <button class="btn" id="addProductButton">Add Product</button>
   </form>
 </section>
+<script src="addProduct.js"></script>
