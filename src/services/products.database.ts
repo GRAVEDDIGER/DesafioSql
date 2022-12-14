@@ -1,8 +1,8 @@
 import { Knex } from 'knex'
-import { DataResponse, Products } from '../types'
+import { DataResponse, Products, DbManagerType } from '../types'
 import { Database } from '../configurations/knex'
-export class DbManager {
-  private readonly database: Knex
+class DbManager implements DbManagerType {
+  database: Knex
   constructor (database: Knex) {
     this.database = database
   }
@@ -57,5 +57,5 @@ export class DbManager {
     return response
   }
 }
-export const dbManager = new DbManager(new Database('coderhouse').database)
+const dbManager = new DbManager(new Database('coderhouse').database)
 export default dbManager

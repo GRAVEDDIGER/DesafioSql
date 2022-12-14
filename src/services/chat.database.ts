@@ -1,8 +1,8 @@
 import { Knex } from 'knex'
-import { ChatDataResponse, Chat } from '../types'
+import { ChatDataResponse, Chat, DbManagerType } from '../types'
 import { Database } from '../configurations/knex'
-export class DbManager {
-  private readonly database: Knex
+export class DbManager implements DbManagerType {
+  database: Knex
   constructor (database: Knex) {
     this.database = database
   }

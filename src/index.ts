@@ -7,16 +7,16 @@ import path from 'path'
 import { Socket } from 'socket.io/dist/socket'
 import { Server } from 'socket.io'
 import { route } from './v1/routes/products'
-import dbManager from './controllers/chat.database'
+import dbManager from './services/chat.database'
 import { Chat } from './types'
 const colors = require('colors')
 const PORT = process.env.PORT ?? 8080
 const app = express()
 const server = require('http').createServer(app)
 const io = new Server(server)
-app.use(express.json())
+// app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
-app.use(express.urlencoded({ extended: true }))
+// app.use(express.urlencoded({ extended: true }))
 app.engine('handlebars', engine())
 app.set('view engine', 'handlebars')
 app.set('views', path.join(__dirname, 'views'))

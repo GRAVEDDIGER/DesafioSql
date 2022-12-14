@@ -1,26 +1,10 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable @typescript-eslint/no-misused-promises */
 
-import express, { Router, Request, Response } from 'express'
-import { dbManager } from '../../controllers/products.database'
-import { DataResponse, Products } from '../../types'
-const colors = require('colors')
+import express, { Router } from 'express'
+import { ProductsController } from '../../controllers/products.controller'
+
 export const route = Router()
-route.get('/', async (_req: Request, res: Response): Promise<any> => {
-  const data = await dbManager.getAll()
 
-  if (data.status === 200) {
-    res.render('home', { contenido: true, products: data.data })
-  } else {
-    res.render('home', { contenido: false, products: data.data })
-  }
-})
-
-route.post('/', express.json(), async (req: Request, res: Response) => {
-  const data1: Products = req.body
-  const data = JSON.parse(Object.keys(data1)[0])
-  console.log(colors.blue(data), colors.yellow('body'), colors.red(typeof data))
-  const response: DataResponse = await dbManager.addProduct(data)
-  console.log(colors.red(response))
-  res.redirect('/')
-})
+route.get('/', /* async (req, res) => await */ProductsController.getAllProducts/* (req, res) */)
+route.post('/', express.json(), ProductsController.addProduct)
